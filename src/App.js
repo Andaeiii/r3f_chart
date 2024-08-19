@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'; 
+import BarChart from './charts/BarChart';
+
+const data = [
+  { label: 'A', value: 30, color: '#ff5733' },
+  { label: 'B', value: 50, color: '#33ff57' },
+  { label: 'C', value: 70, color: '#3357ff' },
+  { label: 'D', value: 100, color: '#ff33a1' },
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <BarChart data={data} />
     </div>
   );
 }
