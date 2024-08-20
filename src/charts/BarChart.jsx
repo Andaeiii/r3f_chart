@@ -81,6 +81,8 @@ const Axis = () => {
     }
   });
 
+  //the xAxis line.... 
+
   const xAxisPoints = [
     new THREE.Vector3(-7.5, 0, 0),
     new THREE.Vector3(7.5, 0, 0),
@@ -89,9 +91,11 @@ const Axis = () => {
   const xAxisMaterial = new THREE.LineBasicMaterial({ color: 'white' });
   const xAxisLine = new THREE.Line(xAxisGeometry, xAxisMaterial);
 
+  //the yAxis line.... 
+
   const yAxisPoints = [
-    new THREE.Vector3(-7.5, 15, 0),
-    new THREE.Vector3(-7.5, 5, 0),
+    new THREE.Vector3(-7.5, 15, 0),   
+    new THREE.Vector3(-7.5, 5, 0),   
   ];
   const yAxisGeometry = new THREE.BufferGeometry().setFromPoints(yAxisPoints);
   const yAxisMaterial = new THREE.LineBasicMaterial({ color: 'white' });
@@ -116,10 +120,14 @@ const Labels = () => {
       data.forEach((item, index) => {
         
         const textGeometry = new TextGeometry(item.label, { font, size: 0.23, height: 0.1, });
-
         const textMaterial = new THREE.MeshBasicMaterial({ color: 'white' });
+
+        let xpos = index * 1.5 - (data.length * 1.5) / 2;
+
+        console.log("xpos", xpos )
+
         const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-        textMesh.position.set(index * 1.5 - (data.length * 1.5) / 2, -0.5, 0);
+        textMesh.position.set(xpos, -0.5, 0);
         scene.add(textMesh);
       });
 
@@ -178,7 +186,12 @@ const BarChart = () => {
   const maxVal = Math.max(...data.map(item => item.value));
 
   return (
-    <Canvas style={{ background: 'black' }} camera={{ position: [0, 2, 10], fov: 75 }}>
+    <Canvas  
+      style={{ background: 'transparent' }}
+      gl={{ alpha: true }} // Ensure the WebGLRenderer has alpha enabled
+      camera={{ position: [0, 2, 10], fov: 75 }}
+    >
+
       <ambientLight intensity={0.1} />
       <directionalLight position={[2, 5, 5]} intensity={0.1} />
       <MovingLight />
@@ -191,8 +204,9 @@ const BarChart = () => {
 
       {data.map((item, index) => {
         const height = (item.value / maxVal) * 5;
+        let xpos = (index * 1.5 - (data.length * 1.5) / 2) + 0.5;
         const position = [
-          index * 1.5 - data.length / 2, // x position
+          xpos, //index * 1.5 - data.length / 2, // x position
           height / 2, // y position
           0 // z position
         ];
