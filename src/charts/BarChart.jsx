@@ -6,7 +6,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 const data = [
-  { label: 'rice', value: 10, color: '#ff5733' },
+  { label: 'rice', value: 90, color: '#ff5733' },
   { label: 'beans', value: 70, color: '#33ff57' },
   { label: 'garri', value: 35, color: '#3357ff' },
   { label: 'flour', value: 15, color: '#ff33a1' },
@@ -62,7 +62,10 @@ const Plane = () => {
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]}>
       <planeGeometry args={[15, 10]} />
-      <meshStandardMaterial color="blue" />
+      <meshStandardMaterial 
+          color="blue" 
+          side={THREE.DoubleSide}   //ensure the material is on both sides.....
+       />
     </mesh>
   );
 };
