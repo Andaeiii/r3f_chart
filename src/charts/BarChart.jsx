@@ -6,12 +6,13 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 const data = [
-  { label: 'rice', value: 20, color: '#ff5733' },
-  { label: 'beans', value: 70, color: '#33ff57' },
-  { label: 'garri', value: 35, color: '#3357ff' },
-  { label: 'flour', value: 115, color: '#ff33a1' },
-  { label: 'millet', value: 89, color: '#33ff57' },
-  { label: 'corn', value: 25, color: '#3357ff' },
+  { label: 'rice', value: 90, color: '#ff5733' },
+  { label: 'beans', value: 100, color: '#33ff57' },
+  { label: 'garri', value: 15, color: '#3357ff' },
+  { label: 'flour', value: 95, color: '#ff33a1' },
+  { label: 'millet', value: 19, color: '#33ff57' },
+  { label: 'rice', value: 50, color: '#334457' },
+  { label: 'corn', value: 115, color: '#3357ff' },
   { label: 'amala', value: 90, color: '#ff33a1' } 
 ];
 
@@ -40,8 +41,6 @@ const Bar = ({ position, height, color }) => {
     </mesh>
   );
 };
-
-
 
 
 //create the moving light here....

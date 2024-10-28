@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BarChart from './charts/BarChart';
+import BarChart2 from './charts/BarChart2';
+import PieChart3D from './charts/PieChart';
 
 // const data = [
 //   { label: 'A', value: 30, color: '#ff5733' },
@@ -9,10 +11,15 @@ import BarChart from './charts/BarChart';
 // ];
 
 function App() {
+  const [pie, setPie] = useState(true); 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <BarChart />
+
+      { pie ? <PieChart3D /> : <BarChart /> } 
+
     </div>
+
+ 
   );
 }
 
