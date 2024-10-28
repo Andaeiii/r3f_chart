@@ -1,15 +1,16 @@
 import React, { useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from "three";
+import OrbitCtrls from "../controls/OrbitControls";
+import MovingLight2 from "../lights/MovingLight2";
 
 // Generate random data for pie chart
 const generateRandomData = () => {
   return Array.from({ length: 5 }, () => Math.random());
 };
 
-// Pie chart segment component
-const PieSegment = ({ startAngle, endAngle, color, radius = 2 }) => {
+// Pie chart segment component with extrusion
+const PieSegment = ({ startAngle, endAngle, color, radius = 2, depth = 0.5 }) => {
   const shape = useMemo(() => {
     const shape = new THREE.Shape();
     shape.moveTo(0, 0);
@@ -18,9 +19,11 @@ const PieSegment = ({ startAngle, endAngle, color, radius = 2 }) => {
     return shape;
   }, [startAngle, endAngle, radius]);
 
+  const extrudeSettings = { depth, bevelEnabled: false };
+
   return (
     <mesh>
-      <shapeGeometry args={[shape]} />
+      <extrudeGeometry args={[shape, extrudeSettings]} />
       <meshStandardMaterial color={color} />
     </mesh>
   );
@@ -36,24 +39,24 @@ const PieChart3D = () => {
     <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
-      <OrbitControls
-        rotateSpeed={0.2} // Adjust to slow down rotation
-        zoomSpeed={0.5}   // Adjust to slow down zooming
-        panSpeed={0.5}    // Adjust to slow down panning
-      />
+      <MovingLight2 />
+      <OrbitCtrls />
 
       {data.map((value, index) => {
         const angle = (value / total) * Math.PI * 2;
         const endAngle = startAngle + angle;
         const color = new THREE.Color(`hsl(${Math.random() * 360}, 100%, 50%)`);
+        
         const segment = (
           <PieSegment
             key={index}
             startAngle={startAngle}
             endAngle={endAngle}
             color={color}
+            depth={0.5}  // Extrusion depth
           />
         );
+        
         startAngle = endAngle;
         return segment;
       })}

@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import MovingLight2 from '../lights/MovingLight2';
+import OrbitCtrls from '../controls/OrbitControls';
 
 // Component to render each bar
 const Bar2 = ({ position, height, color }) => {
@@ -13,18 +15,7 @@ const Bar2 = ({ position, height, color }) => {
   );
 };
 
-// Component for the moving point light
-const MovingLight2 = () => {
-  const lightRef = useRef();
 
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    const x = Math.sin(time) * 5; // Move left to right
-    lightRef.current.position.set(x, 3, 5); // Position light above the bars
-  });
-
-  return <pointLight ref={lightRef} intensity={1} distance={10} color="white" />;
-};
 
 // Main BarChart component
 const BarChart2 = ({ data }) => {
@@ -33,13 +24,8 @@ const BarChart2 = ({ data }) => {
   return (
     <Canvas style={{ background: 'black' }}>
       <ambientLight intensity={0.2} />
-      <MovingLight2 />
-      <OrbitControls
-        rotateSpeed={0.2} // Adjust to slow down rotation
-        zoomSpeed={0.5}   // Adjust to slow down zooming
-        panSpeed={0.5}    // Adjust to slow down panning
-      />
-
+      <MovingLight2 /> 
+      <OrbitCtrls /> 
       {data.map((item, index) => {
         const height = (item.value / maxVal) * 5; // Normalize the height
         const position = [
