@@ -12,7 +12,7 @@ import PieChart2 from './charts/PieChart2';
 // ];
 
 function App() {
-  const [pie, setPie] = useState(true); 
+  const [pie, setPie] = useState(true);
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
 

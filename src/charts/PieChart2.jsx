@@ -1,17 +1,26 @@
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
+import gsap from "gsap";
 import CanvasLayout from "../layouts/CanvasLayout";
-import AnimatedCamera from "../cameras/AnimatedCamera";
 
-// Generate random data for pie chart
-const generateRandomData = () => {
-  return Array.from({ length: 5 }, () => Math.random() * 100);
-};
+// Provided dataset with labels, values, and colors
+const data = [
+  { label: 'rice', value: 90, color: '#ff5733' },
+  { label: 'beans', value: 100, color: '#33ff57' },
+  { label: 'garri', value: 15, color: '#3357ff' },
+  { label: 'flour', value: 95, color: '#ff33a1' },
+  { label: 'millet', value: 49, color: '#33ff57' },
+  { label: 'rice', value: 50, color: '#334457' },
+  { label: 'corn', value: 115, color: '#3357ff' },
+  { label: 'amala', value: 90, color: '#ff33a1' }
+];
 
-// Pie chart segment component with extrusion and click interaction
-const PieSegment = React.memo(({ startAngle, endAngle, color, value, radius = 2, depth = 0.5, onClick }) => {
+// Pie chart segment component with extrusion, click interaction, and GSAP animation
+const PieSegment = React.memo(({ index, startAngle, endAngle, color, label, value, radius = 2, depth = 0.5, isActive, onClick }) => {
+  const meshRef = useRef();
+
   const shape = useMemo(() => {
     const shape = new THREE.Shape();
     shape.moveTo(0, 0);
@@ -22,8 +31,20 @@ const PieSegment = React.memo(({ startAngle, endAngle, color, value, radius = 2,
 
   const extrudeSettings = { depth, bevelEnabled: false };
 
+  // Animate the segment when the active status changes
+  useEffect(() => {
+    gsap.to(meshRef.current.position, {
+      z: isActive ? 1 : depth / 2, // Move active forward, reset others back
+      duration: 0.5
+    });
+  }, [isActive, depth]);
+
+  const handleClick = () => {
+    if (onClick) onClick(index);
+  };
+
   return (
-    <mesh onClick={onClick} position={[0, 0, depth / 2]}>
+    <mesh ref={meshRef} onClick={handleClick} position={[0, 0, depth / 2]}>
       <extrudeGeometry args={[shape, extrudeSettings]} />
       <meshStandardMaterial color={color} />
       
@@ -39,7 +60,7 @@ const PieSegment = React.memo(({ startAngle, endAngle, color, value, radius = 2,
         anchorX="center"
         anchorY="middle"
       >
-        {value.toFixed(1)}
+        {label} ({value})
       </Text>
     </mesh>
   );
@@ -47,37 +68,33 @@ const PieSegment = React.memo(({ startAngle, endAngle, color, value, radius = 2,
 
 // Main 3D Pie Chart component
 const PieChart3D = () => {
-  const [selectedValue, setSelectedValue] = useState(null);
-  const data = useMemo(generateRandomData, []);
-  const total = data.reduce((sum, value) => sum + value, 0);
+  const [selectedSegment, setSelectedSegment] = useState(null);
+  const total = data.reduce((sum, item) => sum + item.value, 0);
   let startAngle = 0;
 
-  // Memoize the click handler to avoid re-renders
-  const handleSegmentClick = useCallback((value) => {
-    //setSelectedValue(value);
-    console.log(value);
-  }, []);
+  const handleSegmentClick = (index) => {
+    setSelectedSegment(index); // Set the clicked segment index
+  };
 
   return (
-    <CanvasLayout bgColor="darkgreen">
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <AnimatedCamera zPos={4}/>
+    <CanvasLayout bgColor="blue" bg={false}>
 
-      {data.map((value, index) => {
-        const angle = (value / total) * Math.PI * 2;
+      {data.map((item, index) => {
+        const angle = (item.value / total) * Math.PI * 2;
         const endAngle = startAngle + angle;
-        const color = new THREE.Color(`hsl(${Math.random() * 360}, 100%, 50%)`);
 
         const segment = (
           <PieSegment
             key={index}
+            index={index}
             startAngle={startAngle}
             endAngle={endAngle}
-            color={color}
-            value={value}
+            color={item.color}
+            label={item.label}
+            value={item.value}
             depth={0.5}  // Extrusion depth
-            onClick={() => handleSegmentClick(value)} // Memoized handler
+            isActive={selectedSegment === index} // True if this segment is active
+            onClick={handleSegmentClick} // Handle segment click
           />
         );
 
@@ -86,12 +103,13 @@ const PieChart3D = () => {
       })}
 
       {/* Display selected segment value */}
-      {selectedValue !== null && (
+      {selectedSegment !== null && (
         <Text position={[0, -2.5, 1]} fontSize={0.4} color="black">
-          Selected Value: {selectedValue.toFixed(1)}
+          Selected: {data[selectedSegment].label} - {data[selectedSegment].value}
         </Text>
       )}
-    </CanvasLayout>
+   
+   </CanvasLayout>
   );
 };
 

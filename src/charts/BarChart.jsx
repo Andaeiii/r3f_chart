@@ -12,7 +12,7 @@ const data = [
   { label: 'beans', value: 100, color: '#33ff57' },
   { label: 'garri', value: 15, color: '#3357ff' },
   { label: 'flour', value: 95, color: '#ff33a1' },
-  { label: 'millet', value: 19, color: '#33ff57' },
+  { label: 'millet', value: 49, color: '#33ff57' },
   { label: 'rice', value: 50, color: '#334457' },
   { label: 'corn', value: 115, color: '#3357ff' },
   { label: 'amala', value: 90, color: '#ff33a1' } 

@@ -40,7 +40,7 @@ const PieChart3D = () => {
   return ( 
 
     <CanvasLayout bgColor="black">
-
+      
       <AnimatedCamera zPos={5}/>
 
       {data.map((value, index) => {

@@ -3,11 +3,14 @@ import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import OrbitCtrls from '../controls/OrbitControls';
 import MovingLight2 from '../lights/MovingLight';
+import AnimatedCamera from '../cameras/AnimatedCamera';
 
-const CanvasLayout = ({ children, bgColor='black'}) => {
+const CanvasLayout = ({ children, bgColor='black', bg=true}) => {
   return (
-        <Canvas style={{ background: bgColor }}>
-            <ambientLight intensity={0.2} />
+        <Canvas style={{ background: bg && bgColor }}>
+            <ambientLight intensity={0.1} />
+            <directionalLight position={[2, 5, 5]} intensity={0.1} />
+            <AnimatedCamera zPos={4}/>
             <MovingLight2 />
             <OrbitCtrls />
             { children }
