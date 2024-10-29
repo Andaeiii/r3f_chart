@@ -11,8 +11,8 @@ const data = [
   { label: 'beans', value: 100, color: '#33ff57' },
   { label: 'garri', value: 15, color: '#3357ff' },
   { label: 'flour', value: 95, color: '#ff33a1' },
-  { label: 'millet', value: 49, color: '#33ff57' },
-  { label: 'rice', value: 50, color: '#334457' },
+  { label: 'millet', value: 79, color: '#33ff57' },
+  { label: 'rice', value: 50, color: '#fff457' },
   { label: 'corn', value: 115, color: '#3357ff' },
   { label: 'amala', value: 90, color: '#ff33a1' }
 ];
@@ -46,7 +46,7 @@ const PieSegment = React.memo(({ index, startAngle, endAngle, color, label, valu
   return (
     <mesh ref={meshRef} onClick={handleClick} position={[0, 0, depth / 2]}>
       <extrudeGeometry args={[shape, extrudeSettings]} />
-      <meshStandardMaterial color={color} />
+      <meshStandardMaterial color={color} wireframe/>
       
       {/* Add text label on top of each segment */}
       <Text
@@ -103,6 +103,7 @@ const PieChart3D = () => {
       })}
 
       {/* Display selected segment value */}
+
       {selectedSegment !== null && (
         <Text position={[0, -2.5, 1]} fontSize={0.4} color="black">
           Selected: {data[selectedSegment].label} - {data[selectedSegment].value}
