@@ -9,7 +9,7 @@ const AnimatedCamera = ({zPos=10}) => {
     useFrame(({ clock }) => {
         if (!isMouseDown) {
         const time = clock.getElapsedTime();
-        const x = Math.sin(time) * zPos;
+        const x = Math.sin(time) * zPos * 0.5;
         camera.position.set(x, 2, zPos);
         camera.lookAt(0, 0, 0);
         }
