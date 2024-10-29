@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
-import MovingLight2 from '../lights/MovingLight2';
+import MovingLight2 from '../lights/MovingLight';
 import OrbitCtrls from '../controls/OrbitControls';
 
 // Component to render each bar

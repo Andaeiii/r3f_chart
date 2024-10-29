@@ -2,7 +2,9 @@ import React, { useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import OrbitCtrls from "../controls/OrbitControls";
-import MovingLight2 from "../lights/MovingLight2";
+import MovingLight2 from "../lights/MovingLight";
+import CanvasLayout from "../layouts/CanvasLayout";
+import AnimatedCamera from "../cameras/AnimatedCamera";
 
 // Generate random data for pie chart
 const generateRandomData = () => {
@@ -35,12 +37,11 @@ const PieChart3D = () => {
   const total = data.reduce((sum, value) => sum + value, 0);
   let startAngle = 0;
 
-  return (
-    <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <MovingLight2 />
-      <OrbitCtrls />
+  return ( 
+
+    <CanvasLayout bgColor="black">
+
+      <AnimatedCamera zPos={5}/>
 
       {data.map((value, index) => {
         const angle = (value / total) * Math.PI * 2;
@@ -59,8 +60,9 @@ const PieChart3D = () => {
         
         startAngle = endAngle;
         return segment;
-      })}
-    </Canvas>
+      })} 
+      
+      </CanvasLayout>
   );
 };
 

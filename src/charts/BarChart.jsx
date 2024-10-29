@@ -4,6 +4,8 @@ import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import AnimatedCamera from '../cameras/AnimatedCamera';
+import MovingLight from '../lights/MovingLight';
 
 const data = [
   { label: 'rice', value: 90, color: '#ff5733' },
@@ -43,18 +45,7 @@ const Bar = ({ position, height, color }) => {
 };
 
 
-//create the moving light here....
-const MovingLight = () => {
-  const lightRef = useRef();
 
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    const x = Math.sin(time) * 5;
-    lightRef.current.position.set(x, 3, 5);
-  });
-
-  return <pointLight ref={lightRef} intensity={6} distance={10} color="white" />;
-};
 
 //the plane here...... 
 const Plane = () => {
@@ -152,35 +143,7 @@ const Labels = () => {
 };
 
 
-//the animated camera here........
-const AnimatedCamera = () => {
-  const { camera } = useThree();
-  const [isMouseDown, setIsMouseDown] = React.useState(false);
 
-  useFrame(({ clock }) => {
-    if (!isMouseDown) {
-      const time = clock.getElapsedTime();
-      const x = Math.sin(time) * 10;
-      camera.position.set(x, 2, 10);
-      camera.lookAt(0, 0, 0);
-    }
-  });
-
-  React.useEffect(() => {
-    const handleMouseDown = () => setIsMouseDown(true);
-    const handleMouseUp = () => setIsMouseDown(false);
-
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, []);
-
-  return null;
-};
 
 
 //the barchat component itself.... 
@@ -201,7 +164,7 @@ const BarChart = () => {
 
       <Plane />
       <Axis />
-      <Labels />
+      <Labels /> 
       <AnimatedCamera />
 
       {data.map((item, index) => {
