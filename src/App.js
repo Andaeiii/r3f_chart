@@ -3,6 +3,8 @@ import BarChart from './charts/BarChart';
 import BarChart2 from './charts/BarChart2';
 import PieChart3D from './charts/PieChart';
 import PieChart2 from './charts/PieChart2';
+import LineChart from './charts/LineChart';
+import AnimatedLine from './charts/AnimatedLine';
 
 // const data = [
 //   { label: 'A', value: 30, color: '#ff5733' },
@@ -16,7 +18,11 @@ function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
 
-      { pie ? <PieChart2 /> : <BarChart /> } 
+      {/* pie ? <PieChart2 /> : <BarChart /> */} 
+
+      {/* <LineChart3D /> */}
+
+      <AnimatedLine />
 
     </div>
 
@@ -25,3 +31,6 @@ function App() {
 }
 
 export default App;
+
+
+ 
