@@ -18,6 +18,8 @@ const mainPoints = [
 ];
 
 // Function to generate a smooth path with interpolated points
+//try and move it to its own branch... 
+
 const generateSmoothPath = (points, segments) => {
   const smoothPoints = [];
   for (let i = 0; i < points.length - 1; i++) {
@@ -48,6 +50,9 @@ function AnimatedLine() {
       lineRef.current.geometry.setDrawRange(0, drawCount);
     }
   });
+
+
+
 
   return (
     <line ref={lineRef}>
