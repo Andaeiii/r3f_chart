@@ -84,6 +84,10 @@ function AxesAndLabels({ length }) {
   );
 }
 
+//not yet working as expected.... 
+//but would be sorted soon...
+
+
 export default function App() {
   return (
     <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
