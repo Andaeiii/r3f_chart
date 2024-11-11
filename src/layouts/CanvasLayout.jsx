@@ -8,7 +8,7 @@ import AnimatedCamera from '../cameras/AnimatedCamera';
 const CanvasLayout = ({ children, bgColor='black', bg=true}) => {
   return (
         <Canvas style={{ background: bg && bgColor }}>
-            <ambientLight intensity={0.1} />
+            <ambientLight intensity={0.5} />
             <directionalLight position={[2, 5, 5]} intensity={0.1} />
             <AnimatedCamera zPos={4}/>
             <MovingLight2 />

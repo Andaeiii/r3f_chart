@@ -1,5 +1,4 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -46,7 +45,7 @@ const PieSegment = React.memo(({ index, startAngle, endAngle, color, label, valu
   return (
     <mesh ref={meshRef} onClick={handleClick} position={[0, 0, depth / 2]}>
       <extrudeGeometry args={[shape, extrudeSettings]} />
-      <meshStandardMaterial color={color} wireframe/>
+      <meshStandardMaterial color={color} />
       
       {/* Add text label on top of each segment */}
       <Text
