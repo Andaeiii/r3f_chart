@@ -12,3 +12,7 @@ const SwitchBtn = ({ isOn, onChanged}) => {
 };
 
 export default SwitchBtn;
+
+
+
+

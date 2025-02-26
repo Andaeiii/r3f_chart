@@ -6,7 +6,7 @@ import CanvasLayout from "../layouts/CanvasLayout";
 
 // Provided dataset with labels, values, and colors
 const data = [
-  { label: 'rice', value: 90, color: '#ff5733' },
+  { label: 'rice', value: 30, color: '#ff5733' },
   { label: 'beans', value: 100, color: '#33ff57' },
   { label: 'garri', value: 15, color: '#3357ff' },
   { label: 'flour', value: 95, color: '#ff33a1' },

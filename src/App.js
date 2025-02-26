@@ -20,7 +20,7 @@ function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
 
-      { pie ? <PieChart2 /> : <BarChart /> } 
+      { !pie ? <PieChart2 /> : <BarChart /> } 
 
       {/* <LineChart3D /> 
 
