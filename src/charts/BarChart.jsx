@@ -8,6 +8,7 @@ import MovingLight from '../lights/MovingLight';
 import Bar from './comps/Bar';
 import Axis from './comps/Axis';
 import Labels from './comps/Labels';
+import { Leva, useControls } from 'leva';
 
 
 const data = [
@@ -15,8 +16,7 @@ const data = [
   { label: 'beans', value: 20, color: '#33ff57' },
   { label: 'garri', value: 75, color: '#3357ff' },
   { label: 'flour', value: 95, color: '#ff33a1' },
-  { label: 'millet', value: 129, color: '#33ff57' },
-  { label: 'rice', value: 50, color: '#334457' },
+  { label: 'millet', value: 129, color: '#33ff57' }, 
   { label: 'corn', value: 115, color: '#3357ff' },
   { label: 'amala', value: 90, color: '#ff33a1' } 
 ];
@@ -46,7 +46,16 @@ const Plane = () => {
 const BarChart = () => {
   const maxVal = Math.max(...data.map(item => item.value));
 
+  useControls({
+    //students:{value:10, min:20, max:40, step:1, onEditEnd:(v)=>v}
+  })
+
   return (
+
+    <>
+    
+    <Leva /> 
+
     <Canvas  
       style={{ background: 'transparent' }}
       gl={{ alpha: true }} // Ensure the WebGLRenderer has alpha enabled
@@ -75,6 +84,8 @@ const BarChart = () => {
         return <Bar key={item.label} position={position} height={height} color={color} />;
       })}
     </Canvas>
+
+    </>
   );
 };
 

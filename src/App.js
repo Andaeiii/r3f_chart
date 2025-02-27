@@ -1,33 +1,47 @@
-import React, { useState } from 'react';
+import './App.css';
+import React, { useState} from 'react';
 import BarChart from './charts/BarChart';
-import BarChart2 from './charts/BarChart2';
-import PieChart3D from './charts/PieChart';
-import PieChart2 from './charts/PieChart2';
-import LineChart from './charts/LineChart';
-import AnimatedLine from './charts/AnimatedLine';
-import SwitchBtn from './misc/SwitchBtn';
  
+import PieChart2 from './charts/PieChart2';
+ 
+import SwitchBtn from './misc/SwitchBtn';
+import SliderGroup from './misc/SliderGroup';
 
-// const data = [
-//   { label: 'A', value: 30, color: '#ff5733' },
-//   { label: 'B', value: 50, color: '#33ff57' },
-//   { label: 'C', value: 70, color: '#3357ff' },
-//   { label: 'D', value: 100, color: '#ff33a1' },
-// ];
 
 function App() {
+
   const [pie, setPie] = useState(true);
+  const [ data, setData ] = useState({})
+
+   // Callback function to receive values from SliderGroup
+   const readSliderValues = (v) => {
+    console.log("Slider Value:", v);
+    //setSliderValue(v);
+    setData(data);
+  };
+
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div className='parent'>
 
-      { !pie ? <PieChart2 /> : <BarChart /> } 
 
-      {/* <LineChart3D /> 
 
-      <AnimatedLine />*/}
+        <div className='content'  style={{height:'100vh'}} >
 
         <SwitchBtn isOn={pie} onChanged={()=> setPie(!pie)}/>
-      
+
+          { !pie ? <PieChart2 data={data}/> : <BarChart data={data}/> } 
+          
+        </div>
+
+
+        <div className='sideXbar'>
+          <h1>Chart Controls </h1>
+          <hr/>
+          
+           <SliderGroup allValues={readSliderValues}/>
+
+        </div>
+
     </div>
 
  
