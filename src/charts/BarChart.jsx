@@ -1,25 +1,22 @@
-import React, { useRef, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import React, { useRef, useEffect, memo} from 'react';
 import * as THREE from 'three'; 
 import AnimatedCamera from '../cameras/AnimatedCamera';
-import MovingLight from '../lights/MovingLight';
+import CanvasLayout from '../layouts/CanvasLayout';
 
 import Bar from './comps/Bar';
 import Axis from './comps/Axis';
 import Labels from './comps/Labels';
-import { Leva, useControls } from 'leva';
 
 
-const data = [
-  { label: 'rice', value: 90, color: '#ff5733' },
-  { label: 'beans', value: 20, color: '#33ff57' },
-  { label: 'garri', value: 75, color: '#3357ff' },
-  { label: 'flour', value: 95, color: '#ff33a1' },
-  { label: 'millet', value: 129, color: '#33ff57' }, 
-  { label: 'corn', value: 115, color: '#3357ff' },
-  { label: 'amala', value: 90, color: '#ff33a1' } 
-];
+// const data = [
+//   { label: 'rice', value: 90, color: '#ff5733' },
+//   { label: 'beans', value: 20, color: '#33ff57' },
+//   { label: 'garri', value: 75, color: '#3357ff' },
+//   { label: 'flour', value: 95, color: '#ff33a1' },
+//   { label: 'millet', value: 129, color: '#33ff57' }, 
+//   { label: 'corn', value: 115, color: '#3357ff' },
+//   { label: 'amala', value: 90, color: '#ff33a1' } 
+// ];
 
 
  
@@ -38,34 +35,15 @@ const Plane = () => {
 
 
 
-
-
-
-
 //the barchat component itself.... 
-const BarChart = () => {
+const BarChart = ({data}) => {
+  
   const maxVal = Math.max(...data.map(item => item.value));
-
-  useControls({
-    //students:{value:10, min:20, max:40, step:1, onEditEnd:(v)=>v}
-  })
 
   return (
 
-    <>
-    
-    <Leva /> 
 
-    <Canvas  
-      style={{ background: 'transparent' }}
-      gl={{ alpha: true }} // Ensure the WebGLRenderer has alpha enabled
-      camera={{ position: [0, 2, 10], fov: 75 }}
-    >
-
-      <ambientLight intensity={0.1} />
-      <directionalLight position={[2, 5, 5]} intensity={0.1} />
-      <MovingLight />
-      <OrbitControls />
+    <CanvasLayout bgColor="blue" bg={false}>
 
       <Plane />
       <Axis />
@@ -80,13 +58,14 @@ const BarChart = () => {
           height / 2, // y position
           0 // z position
         ];
-        const color = new THREE.Color(item.color || '#3498db');
-        return <Bar key={item.label} position={position} height={height} color={color} />;
+        //const color = new THREE.Color(item.color || '#3498db');
+        return <Bar key={item.label} position={position} height={height} color={item.color} />;
       })}
-    </Canvas>
 
-    </>
+
+    </CanvasLayout>
+
   );
 };
 
-export default BarChart;
+export default memo(BarChart);

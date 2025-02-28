@@ -18,4 +18,4 @@ const CanvasLayout = ({ children, bgColor='black', bg=true}) => {
   )
 }
 
-export default CanvasLayout
+export default React.memo(CanvasLayout)

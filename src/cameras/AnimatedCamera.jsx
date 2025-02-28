@@ -23,8 +23,8 @@ const AnimatedCamera = ({zPos=10}) => {
         window.addEventListener('mouseup', handleMouseUp);
 
         return () => {
-        window.removeEventListener('mousedown', handleMouseDown);
-        window.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener('mousedown', handleMouseDown);
+            window.removeEventListener('mouseup', handleMouseUp);
         };
     }, []);
 

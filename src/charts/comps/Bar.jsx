@@ -3,7 +3,9 @@ import { useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
 
 const Bar = ({ position, height, color }) => {
+ 
   const meshRef = useRef();
+ 
 
   // Animate on mount from height 0 to the initial height
   useEffect(() => {

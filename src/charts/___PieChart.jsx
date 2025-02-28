@@ -32,7 +32,7 @@ const PieSegment = ({ startAngle, endAngle, color, radius = 2, depth = 0.5 }) =>
 };
 
 // Main 3D Pie Chart component
-const PieChart3D = () => {
+const PieChart_3D = () => {
   const data = useMemo(generateRandomData, []);
   const total = data.reduce((sum, value) => sum + value, 0);
   let startAngle = 0;
@@ -66,4 +66,4 @@ const PieChart3D = () => {
   );
 };
 
-export default PieChart3D;
+export default PieChart_3D;
