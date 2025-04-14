@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, memo} from 'react';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
@@ -16,11 +16,11 @@ const Labels = ({data }) => {
           const textMaterial = new THREE.MeshBasicMaterial({ color: 'white' });
           let xpos = index * 1.5 - (data.length * 1.5) / 2;
           const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-          textMesh.position.set(xpos, -0.5, 0);
+          textMesh.position.set(xpos, -0.5, 1);
           scene.add(textMesh);
         });
   
-        for (let i = 0; i <= 5; i++) {
+        for (let i = -5; i <= 5; i++) {
           const valueLabel = i * 20;
           const textGeometry = new TextGeometry(valueLabel.toString(), {
             font,
@@ -38,4 +38,4 @@ const Labels = ({data }) => {
     return null;
 };
   
-export default Labels;
+export default memo(Labels);

@@ -45,7 +45,7 @@ const BarChart = ({data}) => {
 
     <CanvasLayout bgColor="blue" bg={false}>
 
-      <Plane />
+      {/* <Plane /> */}
       <Axis />
       <Labels data={data} /> 
       <AnimatedCamera />

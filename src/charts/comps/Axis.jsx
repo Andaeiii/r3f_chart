@@ -32,7 +32,7 @@ const Axis = () => {
 
   const yAxisPoints = [
     new THREE.Vector3(-7.5, 15, 0),   
-    new THREE.Vector3(-7.5, 5, 0),   
+    new THREE.Vector3(-7.5, -5, 0),   
   ];
   const yAxisGeometry = new THREE.BufferGeometry().setFromPoints(yAxisPoints);
   const yAxisMaterial = new THREE.LineBasicMaterial({ color: 'white' });
